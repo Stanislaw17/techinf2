@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ZADAN 20
+#define DLUGOSC_TEKSTU 100
+
+typedef struct {
+    char opis[DLUGOSC_TEKSTU];
+    int wykonane; // 0 - nie, 1 - tak
+} Zadanie;
+
+void dodajZadanie(Zadanie lista[], int *licznik) {
+    if (*licznik >= MAX_ZADAN) {
+        printf("Osiągnięto maksymalną liczbę zadań.\n");
+        return;
+    }
+
+    printf("Podaj opis zadania: ");
+    scanf(" %[^\n]", lista[*licznik].opis);
+    lista[*licznik].wykonane = 0;
+    (*licznik)++;
+    printf("Dodano zadanie.\n");
+}
+
+void wyswietlZadania(Zadanie lista[], int licznik) {
+    if (licznik == 0) {
+        printf("Brak zadań na liście.\n");
+        return;
+    }
+
+    printf("\n=== LISTA ZADAŃ ===\n");
+    for (int i = 0; i < licznik; i++) {
+        printf("%d. [%c] %s\n", i + 1, lista[i].wykonane ? 'X' : ' ', lista[i].opis);
+    }
+}
+
+void oznaczWykonane(Zadanie lista[], int licznik) {
+    if (licznik == 0) {
+        printf("Brak zadań do oznaczenia.\n");
+        return;
+    }
+
+    int numer;
+    printf("Podaj numer zadania do oznaczenia jako wykonane: ");
+    scanf("%d", &numer);
+
+    if (numer < 1 || numer > licznik) {
+        printf("Nieprawidłowy numer.\n");
+        return;
+    }
+
+    lista[numer - 1].wykonane = 1;
+    printf("Zadanie oznaczone jako wykonane.\n");
+}
+
+int main() {
+    Zadanie zadania[MAX_ZADAN];
+    int licznik = 0;
+    int opcja;
+
+    do {
+        printf("\n--- MENU ---\n");
+        printf("1. Dodaj zadanie\n");
+        printf("2. Wyświetl zadania\n");
+        printf("3. Oznacz jako wykonane\n");
+        printf("0. Wyjście\n");
+        printf("Wybierz opcję: ");
+        scanf("%d", &opcja);
+
+        switch (opcja) {
+            case 1: dodajZadanie(zadania, &licznik); break;
+            case 2: wyswietlZadania(zadania, licznik); break;
+            case 3: oznaczWykonane(zadania, licznik); break;
+            case 0: printf("Zamykanie programu...\n"); break;
+            default: printf("Nieprawidłowa opcja.\n");
+        }
+
+    } while (opcja != 0);
+
+    return 0;
+}
