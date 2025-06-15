@@ -60,7 +60,7 @@ int savearraytofile(int array[]) {
 }
 
 int restorearraytofile(int array[]) {
-    FILE *fptr = fopen("D:\\255947\\plik.txt", "r");
+    FILE *fptr = fopen("D:\\255953\\plik.txt", "r");
     if (fptr == NULL) {
         return 1;
     }
