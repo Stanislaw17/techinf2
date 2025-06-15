@@ -48,7 +48,7 @@ float calculateAverage(int array[], int size) {
 }
 
 int savearraytofile(int array[]) {
-    FILE *fptr = fopen("D:\\255947\\plik.txt", "w");
+    FILE *fptr = fopen("D:\\255953\\plik.txt", "w");
     if (fptr == NULL) {
         return 1;
     }
